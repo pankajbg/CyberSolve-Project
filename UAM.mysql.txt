@@ -1,0 +1,31 @@
+create database Uam;
+
+
+CREATE TABLE user (
+  user_id int NOT NULL primary key AUTO_INCREMENT,
+  first_name varchar(25) NOT NULL,
+  last_name varchar(25) NOT NULL,
+  user_name varchar(55) NOT NULL unique,
+  user_type enum('member','manager','admin') NOT NULL DEFAULT 'member',
+  manager varchar(55),
+  security_question varchar(400),
+  security_answer varchar(400)
+);
+
+
+CREATE TABLE requests (
+  request_id bigint NOT NULL primary key AUTO_INCREMENT,
+  requester_source varchar(55) NOT NULL,
+  requester_data varchar(50) NOT NULL,
+  request_status enum('pending','approved','denied') not null DEFAULT 'pending',
+  FOREIGN KEY (requester_source) REFERENCES user (user_name) ON DELETE CASCADE
+);
+
+
+CREATE TABLE resources (
+  resource_id int NOT NULL primary key AUTO_INCREMENT,
+  resource_name varchar(30) NOT NULL unique
+  
+);
+
+
